@@ -1,10 +1,15 @@
 var express = require('express')
 var mongoDAO = require('./mongoDAO')
+var bodyParser = require('body-parser')
+
 
 var app = express();
 
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({extended:false}))
 
-app.get('/listLecturers', (req, res) => {
+
+app.get('/lecturers', (req, res) => {
     mongoDAO.getLecturers()
     .then((documents) => {
         res.send(documents)
@@ -14,6 +19,26 @@ app.get('/listLecturers', (req, res) => {
     })
     
 })
+
+app.get('/addLecturer', (req, res) => {
+    res.render("addLecturer")
+})
+
+app.post('/addLecturer', (req, res) =>{
+    mongoDAO.addLecturers(req.body._id, req.body.name, req.body.dept)
+    .then((result) =>{
+        res.redirect("/lecturers")
+    })
+    .catch((error) =>{
+        if (error.message.includes("11000")){
+            res.send("_ID: " + req.body._id + " already exists")
+        }else {
+            res.send(error.message)
+        }
+    })
+    
+})
+
 
 // app.get('/listStudents', (req, res) => {
 //     mongoDAO.getStudents()

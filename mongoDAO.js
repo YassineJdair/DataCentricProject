@@ -30,6 +30,18 @@ var getLecturers = function(){
     })
 }
 
+var addLecturers = function(_id, name, dept){
+    return new Promise((resolve, reject) => {
+        lecturers.insertOne({"_id":_id, "name":name, "dept":dept})
+        .then((result) =>{
+            resolve(result)
+        })
+        .catch((error) => {
+            reject(error)
+        })
+    })
+}
+
 // var getStudents = function(){
 //      return new Promise((resolve, reject) => {
 //     //    var cursor = students.find()
@@ -44,4 +56,4 @@ var getLecturers = function(){
 //      })
 // }
 
-module.exports = {getLecturers}
+module.exports = {getLecturers, addLecturers}
