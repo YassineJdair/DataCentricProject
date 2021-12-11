@@ -2,23 +2,33 @@ var express = require('express')
 var mongoDAO = require('./mongoDAO')
 var bodyParser = require('body-parser')
 
-
+const ejs = require('ejs')
 var app = express();
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended:false}))
 
 
+// app.get('/lecturers', (req, res) => {
+//     mongoDAO.getLecturers()
+//     .then((documents) => {
+//         res.send(documents)
+//     })
+//     .catch((error) => {
+//         res.send(error)
+//     })
+    
+// })
+
 app.get('/lecturers', (req, res) => {
     mongoDAO.getLecturers()
-    .then((documents) => {
-        res.send(documents)
-    })
-    .catch((error) => {
-        res.send(error)
-    })
-    
-})
+      .then((data) => {
+        res.render('listlecturers', { lecturerstList: data })
+      })
+      .catch(() => {
+        res.send('error')
+      })
+  })
 
 app.get('/addLecturer', (req, res) => {
     res.render("addLecturer")

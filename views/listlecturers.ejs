@@ -1,0 +1,25 @@
+<style>
+    table, th,  td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+
+<table>
+    <h1>Lecturers</h1>
+    <th>Lecturer ID</th>
+    <th>Name</th>
+    <th>Dept
+    </th>
+
+    </tr>
+    <% lecturerstList.forEach((lecturerstList) =>
+    { %>
+    <tr>
+    <td><%= lecturerstList._id %></td>
+    <td><%= lecturerstList.name %></td>
+    <td><%= lecturerstList.dept %></td>
+    </tr>
+    <% }) %>
+</table>
