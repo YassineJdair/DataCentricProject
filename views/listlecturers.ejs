@@ -1,25 +1,31 @@
 <style>
     table, th,  td {
-        border: 1px solid black;
-        border-collapse: collapse;
+        border: 2px solid black;
+        border-collapse: separate;
     }
 </style>
 
 
 <table>
     <h1>Lecturers</h1>
+    <!-- button to navigate you to add lecturer -->
+    <!-- <button onclick="window.location.href = '/addLecturer'">Add Lecturer</button> -->
+    <a href="http://localhost:3004/addLecturer"><button type="submit" value="Add Lecturer">Add Lecturer</button></a>
+    <br></br>
     <th>Lecturer ID</th>
     <th>Name</th>
     <th>Dept
     </th>
 
     </tr>
-    <% lecturerstList.forEach((lecturerstList) =>
+    <% lecturersList.forEach((lecturersList) =>
     { %>
     <tr>
-    <td><%= lecturerstList._id %></td>
-    <td><%= lecturerstList.name %></td>
-    <td><%= lecturerstList.dept %></td>
+    <td><%= lecturersList._id %></td>
+    <td><%= lecturersList.name %></td>
+    <td><%= lecturersList.dept %></td>
     </tr>
     <% }) %>
 </table>
+<a href="http://localhost:3004/"><p type="submit" value="Home">Home</p></a>
+<!-- <p onclick="window.location.href = '/'">Home</p> -->

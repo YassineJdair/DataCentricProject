@@ -1,0 +1,29 @@
+<style>
+    table, th,  td {
+        border: 2px solid black;
+        border-collapse: separate;
+    }
+</style>
+
+
+<table>
+    <h1>Modules</h1>
+    <!-- <button onclick="window.location.href = '/addStudent'">Add Student</button> -->
+    <th>Module ID</th>
+    <th>Name</th>
+    <th>Credits</th>
+    <th>Update</th>
+    <th>Students</th>
+    
+
+    </tr>
+    <% moduleList.forEach((moduleList) =>
+    { %>
+    <tr>
+    <td><%= moduleList.mid %></td>
+    <td><%= moduleList.name %></td>
+    <td><%= moduleList.credits %></td>
+    </tr>
+    <% }) %>
+</table>
+<a href="http://localhost:3004/"><p type="submit" value="Home">Home</p></a>
