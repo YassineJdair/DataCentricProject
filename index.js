@@ -3,17 +3,14 @@ var mongoDAO = require('./mongoDAO')
 var bodyParser = require('body-parser')
 var mySQLDAO = require('./mysqlDAO')
 
-
+//ejs layout
 const ejs = require('ejs')
+const { Console } = require('console')
 var app = express();
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false }))
 
-
-// app.get('/', (req,res) =>{
-//     res.redirect("localhost:3004")
-// })
 
 
 //list modules
@@ -53,44 +50,12 @@ app.post('/listModules', (req, res) => {
 
 
 
+//get home page which then displays link to each page
+app.get('/', (req, res) => {
+    console.log("This Is Home Page")
+    res.sendFile(__dirname + "/views/home.html")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 //list students
 app.get('/listStudents', (req, res) => {
@@ -106,7 +71,7 @@ app.get('/listStudents', (req, res) => {
         })
 })
 
-//getstudent
+//gets tudent
 app.get('/addStudent', (req, res) => {
     res.render("addStudent")
 })
@@ -127,7 +92,7 @@ app.post('/addStudent', (req, res) => {
 
 })
 
-//list lecturers
+//lists lecturers
 app.get('/listLecturers', (req, res) => {
     mongoDAO.getLecturers()
         .then((data) => {
@@ -142,7 +107,7 @@ app.get('/addLecturer', (req, res) => {
     res.render("addLecturer")
 })
 
-//post lecturer
+//post lecturer which allows you to add
 app.post('/addLecturer', (req, res) => {
     mongoDAO.addLecturers(req.body._id, req.body.name, req.body.dept)
         .then((result) => {

@@ -18,16 +18,16 @@ MongoClient.connect('mongodb://localhost:27017')
 var lecturersDB
 var lecturers
 
-function getLecturers(){
-    return new Promise((resolve, reject)=>{
-       cursor = coll.find()
-       cursor.toArray()
-       .then((data)=>{
-            resolve(data)
-       })
-       .catch((error)=>{
-            reject(error)
-       })
+function getLecturers() {
+    return new Promise((resolve, reject) => {
+        cursor = coll.find()
+        cursor.toArray()
+            .then((data) => {
+                resolve(data)
+            })
+            .catch((error) => {
+                reject(error)
+            })
     })
 }
 

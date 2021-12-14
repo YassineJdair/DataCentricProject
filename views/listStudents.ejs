@@ -1,5 +1,7 @@
 <style>
-    table, th,  td {
+    table,
+    th,
+    td {
         border: 2px solid black;
         border-collapse: separate;
     }
@@ -16,13 +18,22 @@
     </th>
 
     </tr>
-    <% studentList.forEach((studentList) =>
-    { %>
-    <tr>
-    <td><%= studentList.sid %></td>
-    <td><%= studentList.name %></td>
-    <td><%= studentList.gpa %></td>
-    </tr>
-    <% }) %>
+    <% studentList.forEach((studentList)=>
+        { %>
+        <tr>
+            <td>
+                <%= studentList.sid %>
+            </td>
+            <td>
+                <%= studentList.name %>
+            </td>
+            <td>
+                <%= studentList.gpa %>
+            </td>
+        </tr>
+        <% }) %>
 </table>
-<a href="http://localhost:3004/"><p type="submit" value="Home">Home</p></a>
+<!-- link to send you back to the homepage -->
+<a href="http://localhost:3004/">
+    <p type="submit" value="Home">Home</p>
+</a>

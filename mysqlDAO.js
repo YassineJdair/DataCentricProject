@@ -19,7 +19,7 @@ mysql.createPool({
         console.log(error)
     })
 
-    //get students
+//function get students
 var getStudents = function () {
     return new Promise((resolve, reject) => {
         pool.query('select * from student')
@@ -32,6 +32,7 @@ var getStudents = function () {
     })
 }
 
+//function to add student
 var addStudents = function (sid, name, gpa) {
     return new Promise((resolve, rejected) => {
         var myQuery = {
@@ -49,6 +50,7 @@ var addStudents = function (sid, name, gpa) {
     })
 }
 
+//function to get module and list it
 var getModule = function () {
     return new Promise((resolve, reject) => {
         pool.query('select * from module')
@@ -61,6 +63,7 @@ var getModule = function () {
     })
 }
 
+//function to edit moudle not complete
 var editModule = function (mid, name, credits) {
     return new Promise((resolve, rejected) => {
         var myQuery = {
@@ -77,18 +80,5 @@ var editModule = function (mid, name, credits) {
             })
     })
 }
-
-// var addStudents = function (sid, name, gpa) {
-//     return new Promise((resolve, reject) => {
-//         //coll.insertOne({ "sid": sid, "name": name, "gpa": gpa })
-//         pool.query('insert into student (sid, name, gpa) values(?,?,?)' (sid, name, gpa))
-//             .then((result) => {
-//                 resolve(result)
-//             })
-//             .catch((error) => {
-//                 reject(error)
-//             })
-//     })
-// }
-
+//exports modules
 module.exports = { getStudents, addStudents, getModule, editModule }
