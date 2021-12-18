@@ -63,6 +63,24 @@ var getModule = function () {
     })
 }
 
+//test
+//Function to query the module database to list the students studying that module
+var studentsModule = function(mid) {
+    return new Promise((resolve, reject) => {
+        var myQuery = {
+            sql: 'select s.sid, s.name, s.gpa from student s left join student_module m on s.sid = m.sid where m.mid = ?;',
+            values: [mid]
+        }
+        pool.query(myQuery)
+            .then((data) => {
+                resolve(data)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
+
 //function to edit moudle not complete
 var editModule = function (mid, name, credits) {
     return new Promise((resolve, rejected) => {
@@ -81,4 +99,4 @@ var editModule = function (mid, name, credits) {
     })
 }
 //exports modules
-module.exports = { getStudents, addStudents, getModule, editModule }
+module.exports = { getStudents, addStudents, getModule, editModule, studentsModule }

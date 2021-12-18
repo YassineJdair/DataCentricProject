@@ -13,6 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 
+
+//get home page which then displays link to each page
+app.get('/', (req, res) => {
+    console.log("This Is Home Page")
+    res.sendFile(__dirname + "/views/home.html")
+
+})
+
 //list modules
 app.get('/listModules', (req, res) => {
     mySQLDAO.getModule()
@@ -49,19 +57,21 @@ app.post('/listModules', (req, res) => {
 })
 
 
-
-//get home page which then displays link to each page
-app.get('/', (req, res) => {
-    console.log("This Is Home Page")
-    res.sendFile(__dirname + "/views/home.html")
-
+//test
+//List all of the students in a course grouped by Module
+app.get('/listModules/:mid', (req, res) => {
+    mySQLDAO.studentsModule(req.params.mid)
+        .then((data) => {
+            res.render('listModules', { moduleList: data })
+        })
+        .catch((error) => {
+            res.send(error)
+        })
 })
 
 //list students
 app.get('/listStudents', (req, res) => {
     mySQLDAO.getStudents()
-        // .then((result) => {
-        //     res.send(result)
         .then((result) => {
             res.render('listStudents', { studentList: result })
         })
@@ -71,7 +81,7 @@ app.get('/listStudents', (req, res) => {
         })
 })
 
-//gets tudent
+//gets student
 app.get('/addStudent', (req, res) => {
     res.render("addStudent")
 })
