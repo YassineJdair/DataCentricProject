@@ -7,7 +7,6 @@
     }
 </style>
 
-
 <table>
     <h1>Students</h1>
     <button onclick="window.location.href = '/addStudent'">Add Student</button>
@@ -16,6 +15,7 @@
     <th>Name</th>
     <th>GPA
     </th>
+    <th>Actions</th>
 
     </tr>
     <% studentList.forEach((studentList)=>
@@ -30,9 +30,14 @@
             <td>
                 <%= studentList.gpa %>
             </td>
+            <!--Button to remove a student from the student list-->
+            <td>
+                <a href="/listStudents/<%= studentList.sid %>"> <p type="submit">Delete</p></a>
+            </td>
         </tr>
         <% }) %>
 </table>
+
 <!-- link to send you back to the homepage -->
 <a href="http://localhost:3004/">
     <p type="submit" value="Home">Home</p>

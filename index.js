@@ -57,8 +57,7 @@ app.post('/listModules', (req, res) => {
 })
 
 
-//test
-//List all of the students in a course grouped by Module
+//List all of the students in a certain module
 app.get('/listModules/:mid', (req, res) => {
     mySQLDAO.studentsModule(req.params.mid)
         .then((data) => {
@@ -102,6 +101,22 @@ app.post('/addStudent', (req, res) => {
 
 })
 
+//deletes student
+app.get('/listStudents/:sid', (req, res) => {
+    mySQLDAO.deleteStudents(req.params.sid)
+        .then((result) => {
+            res.render('listStudents', { studentList: result })
+        })
+        .catch((error) => {
+            if (error.message.includes("11000")) {
+                res.send("SID: " + req.params.sid + " doesnt exist")
+            } else {
+                res.send(error.message)
+            }
+        })
+
+})
+
 //lists lecturers
 app.get('/listLecturers', (req, res) => {
     mongoDAO.getLecturers()
@@ -113,6 +128,7 @@ app.get('/listLecturers', (req, res) => {
         })
 })
 
+//gets lecturer
 app.get('/addLecturer', (req, res) => {
     res.render("addLecturer")
 })
@@ -133,6 +149,7 @@ app.post('/addLecturer', (req, res) => {
 
 })
 
+//listens on port 3004
 app.listen(3004, () => {
     console.log("Listening on port 3004")
 })

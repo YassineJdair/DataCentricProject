@@ -6,6 +6,7 @@ const url = 'mongodb://localhost:27017';
 var db;
 var coll;
 
+//connect mongo
 MongoClient.connect('mongodb://localhost:27017')
     .then((client) => {
         db = client.db('lecturersDB')
@@ -18,6 +19,7 @@ MongoClient.connect('mongodb://localhost:27017')
 var lecturersDB
 var lecturers
 
+//gets lecturers
 function getLecturers() {
     return new Promise((resolve, reject) => {
         cursor = coll.find()
@@ -31,6 +33,7 @@ function getLecturers() {
     })
 }
 
+//function to add lecturer
 var addLecturers = function (_id, name, dept) {
     return new Promise((resolve, reject) => {
         coll.insertOne({ "_id": _id, "name": name, "dept": dept })
