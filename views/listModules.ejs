@@ -32,10 +32,14 @@
                 <%= moduleList.credits %>
             </td>
             <td>
-                <a href="">Update</a>
+                <a href="/updateModule/<%= moduleList.mid %>">
+                    <p type="submit">Update</p>
+                </a>
             </td>
             <td>
-                <a href="/listModules/<%= moduleList.mid %>"> <p type="submit">List</p></a>
+                <a href="/listModules/<%= moduleList.mid %>">
+                    <p type="submit">List</p>
+                </a>
             </td>
         </tr>
         <% }) %>

@@ -40,28 +40,42 @@ app.get('/listModules', (req, res) => {
     res.render("listModules")
 })
 
-//edit module
-app.post('/listModules', (req, res) => {
-    mySQLDAO.editModule(req.body.sid, req.body.name, req.body.gpa)
+//updates module using post
+app.post('/updateModule/:mid', (req, res) => {
+    mySQLDAO.editModule(req.body.mid, req.body.name, req.body.credits)
         .then((result) => {
-            res.redirect("/listModules")
+            res.render('editModule', { editModule: result })
         })
         .catch((error) => {
-            if (error.message.includes("11000")) {
-                res.send("mid: " + req.body.mid + " already exists")
-            } else {
-                res.send(error.message)
-            }
+            console.log(error)
         })
+    // .catch((error) => {
+    //     if (error.message.includes("11000")) {
+    //         res.send("mid: " + req.body.mid + "cant be updated")
+    //     } else {
+    //         res.send(error.message)
+    //     }
+    // })
 
 })
 
+//edits module
+app.get('/updateModule/:mid', (req, res) => {
+    mySQLDAO.updatingModule(req.params.mid)
+        .then((result) => {
+            res.render('editModule', { editModule: result })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+})
 
 //List all of the students in a certain module
 app.get('/listModules/:mid', (req, res) => {
     mySQLDAO.studentsModule(req.params.mid)
-        .then((data) => {
-            res.render('listModules', { moduleList: data })
+        .then((result) => {
+            console.log(result)
+            res.render('studentsInModule', { studentList: result })
         })
         .catch((error) => {
             res.send(error)
@@ -105,16 +119,23 @@ app.post('/addStudent', (req, res) => {
 app.get('/listStudents/:sid', (req, res) => {
     mySQLDAO.deleteStudents(req.params.sid)
         .then((result) => {
-            res.render('listStudents', { studentList: result })
-        })
-        .catch((error) => {
-            if (error.message.includes("11000")) {
-                res.send("SID: " + req.params.sid + " doesnt exist")
+            if (result.affectedRows == 0) {
+                res.send("<h2> Student: " + req.params.sid + " cant be deleted.</h2>" + "<a href='/'>Home</a>")
             } else {
-                res.send(error.message)
+                res.send("<h2> Student: " + req.params.sid + " Deleted.</h2>" + "<a href='/'>Home</a>")
             }
         })
+        .catch((error) => {
+            if (error.code == "ER_ROW_IS_REFERENCED_2") {
+                res.send("<h2> Error: " + error.errno + " cannot delete student with ID: " + req.params.sid + " as they are enrolled in a module</h2>" + "<a href='/'>Home</a>")
+            }
+            console.log(error.code)
 
+        })
+})
+
+app.get('/listStudents/:sid', (req, res) => {
+    res.render("delete student")
 })
 
 //lists lecturers
